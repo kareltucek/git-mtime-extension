@@ -1,0 +1,74 @@
+#!/bin/bash
+
+function usage 
+{
+  echo "Usage: mtimestore (-a|-s|-r)"
+  echo "Option  Meaning"
+  echo " -a save-all - saves state of all files in a git repository"
+  echo " -s save - saves mtime of all staged files of git repository"
+  echo " -r restore - touches all files saved in .mtimes file"
+  exit 1
+}
+
+function echodate 
+{
+  echo "$(stat -c %Y "$1")|$1" >> .mtimes
+}
+
+IFS=$'\n'
+
+while getopts ":sar" optname
+do
+  case "$optname" in
+    "s")
+      echo "saving changes of staged files to file .mtimes"
+      if [ -f .mtimes ]
+      then
+        mv .mtimes .mtimes_tmp
+        pattern=".mtimes"
+        for str in $(git diff --name-only --staged)
+        do
+          pattern="$pattern\|$str"
+        done
+        cat .mtimes_tmp | grep -vh "|\($pattern\)\b" >> .mtimes
+      else
+        echo "warning: file .mtimes does not exist - creating new"
+      fi
+
+      for str in $(git diff --name-only --staged)
+      do
+        echodate "$str" 
+      done
+      rm .mtimes_tmp 2> /dev/null
+      ;;
+    "a")
+      echo "saving mtimes of all files to file .mtimes"
+      rm .mtimes 2> /dev/null
+      for str in $(git ls-files)
+      do
+        echodate "$str"
+      done
+      ;;
+    "r")
+      echo "restorim dates from .mtimes"
+      if [ -f .mtimes ]
+      then
+        cat .mtimes | while read line
+        do
+          timestamp=$(date -d "1970-01-01 ${line%|*} sec GMT" +%Y%m%d%H%M.%S)
+          touch -t $timestamp "${line##*|}"
+        done
+      else
+        echo "warning: .mtimes not found"
+      fi
+      ;;
+    ":")
+      usage
+      ;;
+    *)
+      usage
+      ;;
+esac
+done
+exit 0
+

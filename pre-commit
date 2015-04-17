@@ -1,0 +1,4 @@
+#!/bin/bash
+mtimestore -s
+git add .mtimes
+

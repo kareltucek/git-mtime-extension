@@ -1,0 +1,4 @@
+#!/bin/bash
+mtimestore -r
+#git update-index --refresh #causes some problems under windows tortoise git
+
