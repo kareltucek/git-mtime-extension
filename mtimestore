@@ -7,6 +7,7 @@ function usage
   echo " -a save-all - saves state of all files in a git repository"
   echo " -s save - saves mtime of all staged files of git repository"
   echo " -r restore - touches all files saved in .mtimes file"
+  echo "version 1.5"
   exit 1
 }
 

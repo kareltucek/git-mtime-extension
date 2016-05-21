@@ -41,7 +41,6 @@ bool parsenum(int& num, char*& ptr)
   return true;
 }
 
-//rozdělí line na číselnou část, a textovou část - číselnou vrátí do time, a ptr nastaví na pozici v line, kde začíná filename
 //splits the 'line' string into a numeric part(->time) and sets ptr to the beginning of the filename
 bool parseline(const char* line, int& time, char*& ptr)
 {
@@ -58,7 +57,6 @@ bool parseline(const char* line, int& time, char*& ptr)
     return false;
 }
 
-//nahraď \n na konci řádků (jinak je interpretován součástí názvu)
 //get rid of endlines (otherwise these are interpretted as a part of the filename)
 void trim(char* string)
 {
@@ -74,7 +72,7 @@ void trim(char* string)
 
 void help()
 {
-  std::cout << "version: 1.4" << std::endl;
+  std::cout << "version: 1.5" << std::endl;
   std::cout << "usage: mtimestore <switch>" << std::endl;
   std::cout << "options:" << std::endl;
   std::cout << "  -a  saves mtimes of all git-versed files into .mtimes file (meant to be done on intialization of mtime fixes)" << std::endl;
