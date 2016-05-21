@@ -12,7 +12,7 @@ function usage
 
 function echodate 
 {
-  echo "$(stat -c %Y "$1")|$1" >> .mtimes
+  [[ -e "$1" ]] && echo "$(stat -c %Y "$1")|$1" >> .mtimes
 }
 
 IFS=$'\n'
@@ -44,13 +44,14 @@ do
     "a")
       echo "saving mtimes of all files to file .mtimes"
       rm .mtimes 2> /dev/null
-      for str in $(git ls-files)
+      while IFS='' read -r -d '' file
       do
-        echodate "$str"
-      done
+        [[ $file = .mtimes ]] && continue
+        echodate "$file"
+      done < <(git ls-files -z)
       ;;
     "r")
-      echo "restorim dates from .mtimes"
+      echo "restoring dates from .mtimes"
       if [ -f .mtimes ]
       then
         cat .mtimes | while read line
