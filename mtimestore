@@ -58,7 +58,7 @@ do
         cat .mtimes | while read line
         do
           timestamp=$(date -d "1970-01-01 ${line%|*} sec GMT" +%Y%m%d%H%M.%S)
-          touch -t $timestamp "${line##*|}"
+          touch -c -t $timestamp "${line##*|}"
         done
       else
         echo "warning: .mtimes not found"
