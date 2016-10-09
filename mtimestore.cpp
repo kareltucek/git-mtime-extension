@@ -72,7 +72,7 @@ void trim(char* string)
 
 void help()
 {
-  std::cout << "version: 1.5" << std::endl;
+  std::cout << "version: 1.6" << std::endl;
   std::cout << "usage: mtimestore <switch>" << std::endl;
   std::cout << "options:" << std::endl;
   std::cout << "  -a  saves mtimes of all git-versed files into .mtimes file (meant to be done on intialization of mtime fixes)" << std::endl;
@@ -140,7 +140,6 @@ void write(const char * file, std::map<std::string, int>& mapa)
 
 int main(int argc, char *argv[])
 {
-  //parsuj options podle unixového standardu
   //parse options in unix-like manner
   if(argc >= 2 && argv[1][0] == '-')
   {
