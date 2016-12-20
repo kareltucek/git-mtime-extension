@@ -19,3 +19,8 @@ HOW DOES IT INTERNALLY WORK/HOW TO USE IT
 - before every commit "mtimestore -s" is called which stores mtimes of staged files into .mtimes file (that is done by pre-commit hook)
 - after every checkout all mtimes in repo are corrected using "mtimestore -r" (that is done by the post-checkout hook)
 - on first use .mtimes has to be manually created using "mtimestore -a" and commited to the repository 
+
+COMPILATION
+The C++ version is meant to be compiled under a unix-like environment - i.e., within the git's shell environment (mingw or cygwin is used in the official windows installation of git). No special switches should be needed. 
+
+If you insist on compiling with standard windows api headers, you may need to enable the __BORLANDC__ directive (it should apply to non-borland compilers as well).

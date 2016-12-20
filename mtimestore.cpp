@@ -10,8 +10,8 @@
 #include <sys/types.h>
 #include <ctime>
 #include <map>
-#include <ctype>
-#include <stdio>
+#include <ctype.h>
+#include <stdio.h>
 
 #ifdef __BORLANDC__
 #define popen _popen
