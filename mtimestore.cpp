@@ -10,6 +10,12 @@
 #include <sys/types.h>
 #include <ctime>
 #include <map>
+#include <ctype>
+#include <stdio>
+
+#ifdef __BORLANDC__
+#define popen _popen
+#endif
 
 
 void changedate(int time, const char* filename)
