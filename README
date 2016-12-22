@@ -21,6 +21,5 @@ HOW DOES IT INTERNALLY WORK/HOW TO USE IT
 - on first use .mtimes has to be manually created using "mtimestore -a" and commited to the repository 
 
 COMPILATION
-The C++ version is meant to be compiled under a unix-like environment - i.e., within the git's shell environment (mingw or cygwin is used in the official windows installation of git). No special switches should be needed. 
+The C++ version was originally meant to be compiled under a unix-like environment - i.e., within the git's shell environment (mingw or cygwin is used in the official windows installation of git). No special switches should be needed. On the other hand, compiling via a native windows compiler has been reported to work and integrate well, once the __BORLANDC__ directive (and switch) override of popen API has been added. The switch applies to all native windows compilers, not just borland's.
 
-If you insist on compiling with standard windows api headers, you may need to enable the __BORLANDC__ directive (it should apply to non-borland compilers as well).
